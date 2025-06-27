@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Log Processing Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            color: #2c3e50;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 60px auto;
+            background: #ffffff;
+            padding: 45px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        h1 {
+            text-align: center;
+            color: #34495e;
+            font-weight: 700;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: bounceIn 0.8s ease;
+        }
+        .header-box {
+            background: linear-gradient(135deg, #e9f7e8, #d9e9d6);
+            border: 1px solid #c8e6c9;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(200, 230, 201, 0.3);
+            animation: fadeIn 0.5s ease;
+        }
+        .header-box h2 {
+            color: #34495e;
+            margin: 0 0 12px 0;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+        .header-box p {
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin: 0;
+        }
+        h3 {
+            color: #34495e;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+            animation: fadeIn 0.5s ease;
+        }
+        .log-container {
+            background-color: #f9fafb;
+            border: 1px solid #ecf0f1;
+            border-radius: 15px;
+            padding: 18px;
+            margin-bottom: 40px;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            animation: slideInUp 0.5s ease;
+        }
+        .log-line {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .log-line:hover {
+            transform: translateX(8px);
+            color: #2980b9;
+        }
+        .success-line {
+            color: #27ae60;
+        }
+        .error-line {
+            color: #c0392b;
+        }
+        .warning-line {
+            color: #e67e22;
+        }
+        .download-section {
+            margin-top: 40px;
+            background: linear-gradient(135deg, #eef6ff, #e9f2ff);
+            border: 1px solid #d4e6ff;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.15);
+            animation: fadeIn 0.5s ease;
+        }
+        .download-header {
+            margin: 0 0 20px 0;
+            color: #2980b9;
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+        .download-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+            animation: fadeIn 0.5s ease;
+        }
+        .download-button {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .download-button:hover {
+            background: linear-gradient(90deg, #2980b9, #2471a3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+        }
+        .buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeIn 0.5s ease;
+        }
+        .button {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            min-width: 180px;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        .button:hover {
+            background: linear-gradient(90deg, #2980b9, #2471a3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+        }
+        .button-back {
+            background: linear-gradient(90deg, #95a5a6, #7f8c8d);
+        }
+        .button-back:hover {
+            background: linear-gradient(90deg, #7f8c8d, #6c757d);
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px 0;
+            color: #7f8c8d;
+            font-size: 1rem;
+            border-top: 1px solid #ecf0f1;
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Processing Results</h1>
+        <div class="header-box">
+            <h2>{{ department }} Employees</h2>
+            <p>Search method: {% if search_by == 'name' %}By Name{% else %}By ID{% endif %} | Format: {{ output_format|upper }}</p>
+        </div>
+        <h3>Processing Log</h3>
+        <div class="log-container">
+            {% for log in logs %}
+                <div class="log-line 
+                    {% if '[✅]' in log or '✅' in log %}success-line{% endif %}
+                    {% if '[❌]' in log or '❌' in log %}error-line{% endif %}
+                    {% if '[⚠️]' in log or '[!]' in log %}warning-line{% endif %}">
+                    {{ log }}
+                </div>
+            {% endfor %}
+        </div>
+        {% if output_files[output_format] or output_format == 'all' %}
+            <div class="download-section">
+                <h3 class="download-header">Download Reports</h3>
+                {% if output_files.xlsx %}
+                    <h4>Excel Report</h4>
+                    <div class="download-buttons">
+                        <a href="{{ url_for('download_file', filename=output_files.xlsx.filename) }}" class="download-button" title="{{ output_files.xlsx.display }}">
+                            {{ output_files.xlsx.display }}
+                        </a>
+                    </div>
+                {% endif %}
+                {% if output_files.csv or (output_format == 'all' and output_files.csv) %}
+                    <h4>CSV Reports</h4>
+                    <div class="download-buttons">
+                        {% for file in output_files.csv %}
+                            <a href="{{ url_for('download_file', filename=file.filename) }}" class="download-button" title="{{ file.display }}">
+                                {{ file.display }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if output_files.html or (output_format == 'all' and output_files.html) %}
+                    <h4>HTML Reports</h4>
+                    <div class="download-buttons">
+                        {% for file in output_files.html %}
+                            <a href="{{ url_for('download_file', filename=file.filename) }}" class="download-button" title="{{ file.display }}">
+                                {{ file.display }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="buttons">
+            <a href="{{ url_for('index') }}" class="button button-back">Back to Home</a>
+        </div>
+        <footer>
+            © 2025 Employee Log Extractor | Developed by Mir Abdul Aziz Khan
+        </footer>
+    </div>
+</body>
+</html>
